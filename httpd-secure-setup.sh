@@ -30,5 +30,5 @@ sudo vi /etc/httpd/conf.d/ssl.conf
 sudo apachectl configtest
 #if it says Syntax OK then everything worked correctly
 #now it is time to restart the server to apply the settings
-sudo sytemctl restart httpd
+sudo systemctl restart httpd
 #now you need to open the ports if they are not already

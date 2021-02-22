@@ -1,5 +1,6 @@
 #! /bin/bash
 #mod_ssl provides support to Apache for ssl encryption
+echo "Setting up SSL for Apache server..."
 sudo yum -y install mod_ssl
 #making directory to store private key, the /etc/ssl/certs is already available for holding the cert
 sudo mkdir /etc/ssl/private
@@ -32,3 +33,4 @@ sudo apachectl configtest
 #now it is time to restart the server to apply the settings
 sudo systemctl restart httpd
 #now you need to open the ports if they are not already
+echo "done"

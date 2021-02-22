@@ -4,7 +4,7 @@
 #and this script in the same directory.
 #####################################################
 #set your variables for the script or it wont work!!!
-ip=x.x.x.x
+ip=127.20.242.20
 port=9997
 user=admin
 passwd=changeme

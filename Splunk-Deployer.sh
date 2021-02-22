@@ -20,22 +20,22 @@ tar -xzvf /opt/splunk.tgz
 #Forwarder deployment section
 
 cd /opt/splunkforwarder/bin
-./splunk start --accept-license ./#you will have to make user and password.
+./splunk start --accept-license #you will have to make user and password.
 #make sure to remember becuase a later step requires you to input them
 
 #adding forward server based on IP and port number
 echo "adding forward server..."
-./splunk add forward-server <$ip>:<$port> -auth <$user>:<$passwd>
+./splunk add forward-server $ip:$port -auth $user:$passwd
 #adding basic monitor, more can be added if necesarry
 echo "adding monitor(s)..."
 ./splunk add monitor /var/log
 #restart to apply settings
 echo "restarting"
-./splunk restart &
+./splunk restart
 #####################################################
 #iptables configuration section
 
 #opening ports for forwarder to talk to server
 echo "opening ports to commuicate with server..."
--A INPUT -i eth0 -p tcp --dport $port -m state --state NEW,ESTABLISHED -j ACCEPT &
--A OUTPUT -o eth0 -p tcp --sport $port -m state --state NEW,ESTABLISHED -j ACCEPT &
+iptables -A INPUT -i eth0 -p tcp --dport $port -m state --state NEW,ESTABLISHED -j ACCEPT &
+iptables -A OUTPUT -o eth0 -p tcp --sport $port -m state --state NEW,ESTABLISHED -j ACCEPT &

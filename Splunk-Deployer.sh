@@ -25,7 +25,7 @@ cd /opt/splunkforwarder/bin
 
 #adding forward server based on IP and port number
 echo "adding forward server..."
-./splunk add forward-server <$>:<$port> -auth <$user>:<$passwd>
+./splunk add forward-server <$ip>:<$port> -auth <$user>:<$passwd>
 #adding basic monitor, more can be added if necesarry
 echo "adding monitor(s)..."
 ./splunk add monitor /var/log

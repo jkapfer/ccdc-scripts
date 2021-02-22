@@ -5,11 +5,12 @@
 #####################################################
 #set your variables for the script or it wont work!!!
 ip=x.x.x.x
-port=x
-username=x
-password=x
+port=9997
+user=admin
+passwd=changeme
 #####################################################
 #Forwarder retrieving section
+
 cd /opt
 echo "downloading the universal forwarder..."
 wget -O splunk.tgz http://download.splunk.com/products/universalforwarder/releases/8.1.2/linux/splunkforwarder-8.1.2-545206cc9f70-Linux-x86_64.tgz
@@ -18,9 +19,13 @@ tar -xzvf /opt/splunk.tgz
 #####################################################
 #Forwarder deployment section
 
+cd /opt/splunkforwarder/bin
+./splunk start --accept-license ./#you will have to make user and password.
+#make sure to remember becuase a later step requires you to input them
+
 #adding forward server based on IP and port number
 echo "adding forward server..."
-./splunk add forward-server <$ip>:<$port>
+./splunk add forward-server <$>:<$port> -auth <$user>:<$passwd>
 #adding basic monitor, more can be added if necesarry
 echo "adding monitor(s)..."
 ./splunk add monitor /var/log

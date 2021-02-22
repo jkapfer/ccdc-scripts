@@ -9,6 +9,13 @@ port=x
 username=x
 password=x
 #####################################################
+#Forwarder retrieving section
+cd /opt
+echo "downloading the universal forwarder..."
+wget -O splunk.tgz http://download.splunk.com/products/universalforwarder/releases/8.1.2/linux/splunkforwarder-8.1.2-545206cc9f70-Linux-x86_64.tgz
+echo "uncompressing the univeral forwarder..."
+tar -xzvf /opt/splunk.tgz
+#####################################################
 #Forwarder deployment section
 
 #adding forward server based on IP and port number

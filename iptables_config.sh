@@ -38,6 +38,11 @@ iptables -t filter -A OUTPUT -p tcp --dport 443 -j ACCEPT
 # NTP (server time)
 iptables -t filter -A OUTPUT -p udp --dport 123 -j ACCEPT
 
+#Protection against port scanning
+iptables -N port-scanning
+iptables -A port-scanning -p tcp --tcp-flags SYN,ACK,FIN,RST RST -m limit --limit 1/s --limit-burst 2 -j RETURN
+iptables -A port-scanning -j DROP
+
 ######## OUTBOUND SERVICES ###############
 
 # HTTP/HTTPS (apache)
@@ -63,6 +68,10 @@ iptables -t filter -A INPUT -p tcp --dport 143 -j ACCEPT
 # SSH
 iptables -A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
 iptables -A OUTPUT -p tcp --sport 22 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+
+# The following two rules are SSH brute force protection
+iptables -A INPUT -p tcp --dport ssh -m conntrack --ctstate NEW -m recent --set
+iptables -A INPUT -p tcp --dport ssh -m conntrack --ctstate NEW -m recent --update --seconds 60 --hitcount 10 -j DROP
 
 # SQL
 #iptables -t filter -A OUTPUT -p tcp --dport 3306 -j ACCEPT

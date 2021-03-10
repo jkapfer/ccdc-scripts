@@ -38,6 +38,10 @@ iptables -t filter -A OUTPUT -p tcp --dport 443 -j ACCEPT
 # NTP (server time)
 iptables -t filter -A OUTPUT -p udp --dport 123 -j ACCEPT
 
+# Splunk log forwarding
+iptables -I INPUT 1  -p tcp --dport 9997 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -I OUTPUT 1 -p tcp --sport 9997 -m state --state NEW,ESTABLISHED -j ACCEPT
+
 #Protection against port scanning
 iptables -N port-scanning
 iptables -A port-scanning -p tcp --tcp-flags SYN,ACK,FIN,RST RST -m limit --limit 1/s --limit-burst 2 -j RETURN

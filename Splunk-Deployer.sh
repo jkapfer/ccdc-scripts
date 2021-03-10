@@ -33,9 +33,3 @@ echo "adding monitor(s)..."
 echo "restarting"
 ./splunk restart
 #####################################################
-#iptables configuration section
-
-#opening ports for forwarder to talk to server
-echo "opening ports to commuicate with server..."
-iptables -A INPUT -i eth0 -p tcp --dport $port -m state --state NEW,ESTABLISHED -j ACCEPT &
-iptables -A OUTPUT -o eth0 -p tcp --sport $port -m state --state NEW,ESTABLISHED -j ACCEPT &
